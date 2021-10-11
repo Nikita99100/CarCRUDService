@@ -17,6 +17,12 @@ func (h *Handler) CreateCar(car *proto.Car) (*proto.Car, error) {
 			return nil, errors.New("car already exists")
 		}
 	}
+	if *car.Price < 0 {
+		return nil, errors.New("Price cannot be less than 0")
+	}
+	if *car.Mileage < 0 {
+		return nil, errors.New("Mileage cannot be less than 0")
+	}
 	proto.CarsMap[car.UUID] = car
 	return car, nil
 }
@@ -35,6 +41,15 @@ func (h *Handler) GetFilteredCars(filter *proto.Car) (*[]proto.Car, error) {
 }
 
 func (h *Handler) UpdateCar(updates *proto.Car) error {
+	if updates.UUID == "" {
+		return errors.New("UUID is empty")
+	}
+	if *updates.Price < 0 {
+		return errors.New("Price cannot be less than 0")
+	}
+	if *updates.Mileage < 0 {
+		return errors.New("Mileage cannot be less than 0")
+	}
 	car, ok := proto.CarsMap[updates.UUID]
 	if !ok {
 		return errors.New("car not found")
