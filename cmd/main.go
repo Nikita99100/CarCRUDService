@@ -40,5 +40,4 @@ func main() {
 	// Start an http server and remember to shut it down
 	server.Start(router, cfg.Port)
 	defer server.Stop(router, serverShutdownTimeout)
-
 }
