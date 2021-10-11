@@ -15,5 +15,5 @@ func (r *Rest) Route() {
 	r.Router.GET("/car/:uuid", r.GetCarByUUID)
 	r.Router.GET("/car", r.GetFilteredCars)
 	r.Router.PUT("/car/update", r.UpdateCar)
-	r.Router.DELETE("/car/delete:uuid", r.DeleteCar)
+	r.Router.DELETE("/car/delete/:uuid", r.DeleteCar)
 }
