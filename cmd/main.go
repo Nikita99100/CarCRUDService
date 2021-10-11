@@ -4,6 +4,7 @@ import (
 	"flag"
 	"github.com/Nikita99100/CarCRUDService/config"
 	"github.com/Nikita99100/CarCRUDService/handler"
+	"github.com/Nikita99100/CarCRUDService/pkg/os"
 	"github.com/Nikita99100/CarCRUDService/server"
 	"github.com/labstack/echo/v4"
 	"log"
@@ -38,6 +39,8 @@ func main() {
 	rest.Route()
 
 	// Start an http server and remember to shut it down
-	server.Start(router, cfg.Port)
+	go server.Start(router, cfg.Port)
 	defer server.Stop(router, serverShutdownTimeout)
+
+	<-os.NotifyAboutExit()
 }
